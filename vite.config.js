@@ -8,6 +8,9 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
+            devOptions: {
+                enabled: true
+            },
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
             manifest: {
                 name: 'Huzur Vakti',
@@ -17,8 +20,8 @@ export default defineConfig({
                 background_color: '#1c1917',
                 display: 'standalone',
                 orientation: 'portrait',
-                scope: '/',
-                start_url: '/',
+                scope: '/prayer-time/',
+                start_url: '/prayer-time/',
                 icons: [
                     {
                         src: 'pwa-192x192.png',
