@@ -31,26 +31,126 @@ const surahNames = [
 // Critical Religious Days for 2026 (Diyanet)
 // Special Days for 2026 (Religious, National, Global)
 const specialDays = [
-  { name: "Yılbaşı", date: "2026-01-01", description: "Yeni bir yılın başlangıcı, yeni umutlar ve hedefler." },
-  { name: "Berat Kandili", date: "2026-02-02", description: "Günahlardan arınma ve bağışlanma gecesi, dua kapılarının sonuna kadar açıldığı mübarek bir zaman." },
-  { name: "Sevgililer Günü", date: "2026-02-14", description: "Sevginin ve romantizmin kutlandığı, sevdiklerimize değer verdiğimizi hissettirdiğimiz özel gün." },
-  { name: "Ramazan Başlangıcı", date: "2026-02-19", description: "On bir ayın sultanı, oruç, sabır ve Kur'an ayı. Rahmet ve bereket iklimi." },
-  { name: "Dünya Kadınlar Günü", date: "2026-03-08", description: "Kadınların sosyal, ekonomik ve siyasi başarılarının kutlandığı, eşitlik mücadelesinin simgesi." },
-  { name: "Kadir Gecesi", date: "2026-03-16", description: "Bin aydan daha hayırlı olan, Kur'an'ın indirilmeye başlandığı mübarek gece." },
-  { name: "Ramazan Bayramı", date: "2026-03-20", description: "Oruç ibadetinin tamamlanmasının sevinci, birlik, beraberlik ve paylaşma günleri." },
-  { name: "Ulusal Egemenlik ve Çocuk Bayramı", date: "2026-04-23", description: "TBMM'nin açılışı ve Atatürk'ün çocuklara armağan ettiği, dünyadaki tek çocuk bayramı." },
-  { name: "Emek ve Dayanışma Günü", date: "2026-05-01", description: "İşçi ve emekçilerin bayramı, dayanışma ve haksızlıklarla mücadele günü." },
-  { name: "Anneler Günü", date: "2026-05-10", description: "Bizi karşılıksız seven, her daim yanımızda olan annelerimize minnetimizi sunduğumuz gün." },
-  { name: "Atatürk'ü Anma, Gençlik ve Spor Bayramı", date: "2026-05-19", description: "Milli mücadelenin başladığı tarih, Atatürk'ün Samsun'a çıkışı ve gençlere armağan ettiği bayram." },
-  { name: "Kurban Bayramı", date: "2026-05-27", description: "Hz. İbrahim'in sadakatinin, Hz. İsmail'in teslimiyetinin simgesi. Paylaşma ve yakınlaşma bayramı." },
-  { name: "Hicri Yılbaşı", date: "2026-06-16", description: "Muharrem ayının başlangıcı ve İslam tarihindeki dönüm noktalarından biri olan Hicret'in yıldönümü." },
-  { name: "Babalar Günü", date: "2026-06-21", description: "Ailemizin direği, fedakar babalarımızın değerini hatırladığımız ve kutladığımız gün." },
-  { name: "Aşure Günü", date: "2026-06-25", description: "Paylaşmanın, dayanışmanın, birlik ve beraberliğin simgesi. Muharrem ayının 10. günü." },
-  { name: "Demokrasi ve Milli Birlik Günü", date: "2026-07-15", description: "Hain darbe girişimine karşı milletin zaferi, şehitlerimizi anma ve demokrasiye sahip çıkma günü." },
-  { name: "Mevlid Kandili", date: "2026-08-24", description: "Alemlere rahmet olarak gönderilen Peygamber Efendimiz Hz. Muhammed'in (s.a.v) dünyaya teşrif ettiği gece." },
-  { name: "Zafer Bayramı", date: "2026-08-30", description: "Büyük Taarruz'un zaferle sonuçlandığı, Türk ordusunun gücünü dünyaya gösterdiği gün." },
-  { name: "Cumhuriyet Bayramı", date: "2026-10-29", description: "Cumhuriyetin ilanı, egemenliğin kayıtsız şartsız millete verildiği en büyük milli bayramımız." },
-  { name: "Öğretmenler Günü", date: "2026-11-24", description: "Geleceğimizi şekillendiren, fedakar öğretmenlerimize saygı ve şükranlarımızı sunduğumuz gün." },
+  {
+    name: "Yılbaşı",
+    date: "2026-01-01",
+    description: "Yeni bir yılın başlangıcı, yeni umutlar ve hedefler.",
+    verse: { text: "Gerçekten biz, her şeyi bir ölçüye göre yarattık.", source: "Kamer Suresi, 49. Ayet" }
+  },
+  {
+    name: "Berat Kandili",
+    date: "2026-02-02",
+    description: "Günahlardan arınma ve bağışlanma gecesi, dua kapılarının sonuna kadar açıldığı mübarek bir zaman.",
+    verse: { text: "De ki: Ey kendilerinin aleyhine aşırı giden kullarım! Allah'ın rahmetinden ümidinizi kesmeyin.", source: "Zümer Suresi, 53. Ayet" }
+  },
+  {
+    name: "Sevgililer Günü",
+    date: "2026-02-14",
+    description: "Sevginin ve romantizmin kutlandığı, sevdiklerimize değer verdiğimizi hissettirdiğimiz özel gün.",
+    verse: { text: "Kendileri ile huzur bulasınız diye sizin için türünüzden eşler yaratması ve aranızda bir sevgi ve merhamet var etmesi de O'nun (varlığının ve kudretinin) delillerindendir.", source: "Rûm Suresi, 21. Ayet" }
+  },
+  {
+    name: "Ramazan Başlangıcı",
+    date: "2026-02-19",
+    description: "On bir ayın sultanı, oruç, sabır ve Kur'an ayı. Rahmet ve bereket iklimi.",
+    verse: { text: "Ramazan ayı, insanlara yol gösterici, doğrunun ve doğruyu eğriden ayırmanın açık delilleri olarak Kur'an'ın indirildiği aydır.", source: "Bakara Suresi, 185. Ayet" }
+  },
+  {
+    name: "Dünya Kadınlar Günü",
+    date: "2026-03-08",
+    description: "Kadınların sosyal, ekonomik ve siyasi başarılarının kutlandığı, eşitlik mücadelesinin simgesi.",
+    verse: { text: "Mümin erkekler ve mümin kadınlar birbirlerinin dostlarıdır. İyiliği emreder, kötülükten alıkoyarlar.", source: "Tevbe Suresi, 71. Ayet" }
+  },
+  {
+    name: "Kadir Gecesi",
+    date: "2026-03-16",
+    description: "Bin aydan daha hayırlı olan, Kur'an'ın indirilmeye başlandığı mübarek gece.",
+    verse: { text: "Şüphesiz, biz onu (Kur'an'ı) Kadir gecesinde indirdik. Kadir gecesinin ne olduğunu sen ne bileceksin! Kadir gecesi bin aydan daha hayırlıdır.", source: "Kadir Suresi, 1-3. Ayet" }
+  },
+  {
+    name: "Ramazan Bayramı",
+    date: "2026-03-20",
+    description: "Oruç ibadetinin tamamlanmasının sevinci, birlik, beraberlik ve paylaşma günleri.",
+    verse: { text: "Yiyiniz, içiniz, fakat israf etmeyiniz. Çünkü Allah israf edenleri sevmez.", source: "A'râf Suresi, 31. Ayet" }
+  },
+  {
+    name: "Ulusal Egemenlik ve Çocuk Bayramı",
+    date: "2026-04-23",
+    description: "TBMM'nin açılışı ve Atatürk'ün çocuklara armağan ettiği, dünyadaki tek çocuk bayramı.",
+    verse: { text: "Mallar ve çocuklar dünya hayatının süsüdür. Baki kalacak salih ameller ise, Rabbinin katında, sevap olarak da (insanın) ümit bağlaması bakımından da daha hayırlıdır.", source: "Kehf Suresi, 46. Ayet" }
+  },
+  {
+    name: "Emek ve Dayanışma Günü",
+    date: "2026-05-01",
+    description: "İşçi ve emekçilerin bayramı, dayanışma ve haksızlıklarla mücadele günü.",
+    verse: { text: "İnsan için ancak çalıştığının karşılığı vardır.", source: "Necm Suresi, 39. Ayet" }
+  },
+  {
+    name: "Anneler Günü",
+    date: "2026-05-10",
+    description: "Bizi karşılıksız seven, her daim yanımızda olan annelerimize minnetimizi sunduğumuz gün.",
+    verse: { text: "Biz insana, anne-babasına iyi davranmasını tavsiye ettik. Annesi onu zahmetle taşıdı ve zahmetle doğurdu.", source: "Ahkâf Suresi, 15. Ayet" }
+  },
+  {
+    name: "Atatürk'ü Anma, Gençlik ve Spor Bayramı",
+    date: "2026-05-19",
+    description: "Milli mücadelenin başladığı tarih, Atatürk'ün Samsun'a çıkışı ve gençlere armağan ettiği bayram.",
+    verse: { text: "Hani o gençler mağaraya sığınmışlardı da, 'Ey Rabbimiz! Bize katından bir rahmet ver ve içinde bulunduğumuz şu durumda bize kurtuluş ve doğruluğa ulaşmayı kolaylaştır' demişlerdi.", source: "Kehf Suresi, 10. Ayet" }
+  },
+  {
+    name: "Kurban Bayramı",
+    date: "2026-05-27",
+    description: "Hz. İbrahim'in sadakatinin, Hz. İsmail'in teslimiyetinin simgesi. Paylaşma ve yakınlaşma bayramı.",
+    verse: { text: "Onların ne etleri ne de kanları Allah'a ulaşır; fakat O'na sadece sizin takvanız ulaşır.", source: "Hac Suresi, 37. Ayet" }
+  },
+  {
+    name: "Hicri Yılbaşı",
+    date: "2026-06-16",
+    description: "Muharrem ayının başlangıcı ve İslam tarihindeki dönüm noktalarından biri olan Hicret'in yıldönümü.",
+    verse: { text: "Eğer siz ona (Peygamber'e) yardım etmezseniz, (biliyorsunuz ki) inkar edenler onu iki kişiden biri olarak (Mekke'den) çıkardıkları zaman, Allah ona yardım etmişti.", source: "Tevbe Suresi, 40. Ayet" }
+  },
+  {
+    name: "Babalar Günü",
+    date: "2026-06-21",
+    description: "Ailemizin direği, fedakar babalarımızın değerini hatırladığımız ve kutladığımız gün.",
+    verse: { text: "Rabbin, kendisinden başkasına asla ibadet etmemenizi, anaya babaya iyi davranmanızı kesin olarak emretti.", source: "İsrâ Suresi, 23. Ayet" }
+  },
+  {
+    name: "Aşure Günü",
+    date: "2026-06-25",
+    description: "Paylaşmanın, dayanışmanın, birlik ve beraberliğin simgesi. Muharrem ayının 10. günü.",
+    verse: { text: "Ey iman edenler! Kazandıklarınızın iyilerinden ve rızık olarak yerden size çıkardıklarımızdan hayra harcayın.", source: "Bakara Suresi, 267. Ayet" }
+  },
+  {
+    name: "Demokrasi ve Milli Birlik Günü",
+    date: "2026-07-15",
+    description: "Hain darbe girişimine karşı milletin zaferi, şehitlerimizi anma ve demokrasiye sahip çıkma günü.",
+    verse: { text: "Allah yolunda öldürülenleri sakın ölüler sanma. Bilakis onlar diridirler, Rableri katında rızıklandırılmaktadırlar.", source: "Âl-i İmrân Suresi, 169. Ayet" }
+  },
+  {
+    name: "Mevlid Kandili",
+    date: "2026-08-24",
+    description: "Alemlere rahmet olarak gönderilen Peygamber Efendimiz Hz. Muhammed'in (s.a.v) dünyaya teşrif ettiği gece.",
+    verse: { text: "(Ey Muhammed!) Biz seni ancak âlemlere rahmet olarak gönderdik.", source: "Enbiyâ Suresi, 107. Ayet" }
+  },
+  {
+    name: "Zafer Bayramı",
+    date: "2026-08-30",
+    description: "Büyük Taarruz'un zaferle sonuçlandığı, Türk ordusunun gücünü dünyaya gösterdiği gün.",
+    verse: { text: "Allah'ın yardımı ve zafer geldiği zaman...", source: "Nasr Suresi, 1. Ayet" }
+  },
+  {
+    name: "Cumhuriyet Bayramı",
+    date: "2026-10-29",
+    description: "Cumhuriyetin ilanı, egemenliğin kayıtsız şartsız millete verildiği en büyük milli bayramımız.",
+    verse: { text: "Onların işleri, aralarında istişare (danışma) iledir.", source: "Şûrâ Suresi, 38. Ayet" }
+  },
+  {
+    name: "Öğretmenler Günü",
+    date: "2026-11-24",
+    description: "Geleceğimizi şekillendiren, fedakar öğretmenlerimize saygı ve şükranlarımızı sunduğumuz gün.",
+    verse: { text: "De ki: Hiç bilenlerle bilmeyenler bir olur mu?", source: "Zümer Suresi, 9. Ayet" }
+  },
 ];
 
 // List of 81 Provinces of Turkey for the Modal
@@ -746,6 +846,13 @@ const App = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">{activeSpecialDay.name}</h3>
               <p className="text-stone-300 leading-relaxed max-w-2xl">{activeSpecialDay.description}</p>
+
+              {activeSpecialDay.verse && (
+                <div className="mt-4 pt-4 border-t border-stone-700/50">
+                  <p className="text-stone-200 italic font-serif">"{activeSpecialDay.verse.text}"</p>
+                  <p className="text-orange-500 text-xs font-bold mt-1 uppercase">{activeSpecialDay.verse.source}</p>
+                </div>
+              )}
             </div>
 
             <div className="shrink-0 z-10 flex flex-col items-center bg-stone-900/50 p-3 rounded-lg border border-stone-800 backdrop-blur-sm">
