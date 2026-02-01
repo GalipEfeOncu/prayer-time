@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useDeferredValue, useRef } from 'react';
-import { Clock, MapPin, BookOpen, ChevronRight, Loader2, X, Navigation, Search } from 'lucide-react';
+import { Clock, MapPin, BookOpen, ChevronRight, Loader2, X, Navigation, Search, Star } from 'lucide-react';
 
 // Hardcoded verses database
 const verses = [
@@ -29,15 +29,28 @@ const surahNames = [
 ];
 
 // Critical Religious Days for 2026 (Diyanet)
-const religiousDays = [
+// Special Days for 2026 (Religious, National, Global)
+const specialDays = [
+  { name: "Yılbaşı", date: "2026-01-01", description: "Yeni bir yılın başlangıcı, yeni umutlar ve hedefler." },
   { name: "Berat Kandili", date: "2026-02-02", description: "Günahlardan arınma ve bağışlanma gecesi, dua kapılarının sonuna kadar açıldığı mübarek bir zaman." },
+  { name: "Sevgililer Günü", date: "2026-02-14", description: "Sevginin ve romantizmin kutlandığı, sevdiklerimize değer verdiğimizi hissettirdiğimiz özel gün." },
   { name: "Ramazan Başlangıcı", date: "2026-02-19", description: "On bir ayın sultanı, oruç, sabır ve Kur'an ayı. Rahmet ve bereket iklimi." },
+  { name: "Dünya Kadınlar Günü", date: "2026-03-08", description: "Kadınların sosyal, ekonomik ve siyasi başarılarının kutlandığı, eşitlik mücadelesinin simgesi." },
   { name: "Kadir Gecesi", date: "2026-03-16", description: "Bin aydan daha hayırlı olan, Kur'an'ın indirilmeye başlandığı mübarek gece." },
   { name: "Ramazan Bayramı", date: "2026-03-20", description: "Oruç ibadetinin tamamlanmasının sevinci, birlik, beraberlik ve paylaşma günleri." },
+  { name: "Ulusal Egemenlik ve Çocuk Bayramı", date: "2026-04-23", description: "TBMM'nin açılışı ve Atatürk'ün çocuklara armağan ettiği, dünyadaki tek çocuk bayramı." },
+  { name: "Emek ve Dayanışma Günü", date: "2026-05-01", description: "İşçi ve emekçilerin bayramı, dayanışma ve haksızlıklarla mücadele günü." },
+  { name: "Anneler Günü", date: "2026-05-10", description: "Bizi karşılıksız seven, her daim yanımızda olan annelerimize minnetimizi sunduğumuz gün." },
+  { name: "Atatürk'ü Anma, Gençlik ve Spor Bayramı", date: "2026-05-19", description: "Milli mücadelenin başladığı tarih, Atatürk'ün Samsun'a çıkışı ve gençlere armağan ettiği bayram." },
   { name: "Kurban Bayramı", date: "2026-05-27", description: "Hz. İbrahim'in sadakatinin, Hz. İsmail'in teslimiyetinin simgesi. Paylaşma ve yakınlaşma bayramı." },
   { name: "Hicri Yılbaşı", date: "2026-06-16", description: "Muharrem ayının başlangıcı ve İslam tarihindeki dönüm noktalarından biri olan Hicret'in yıldönümü." },
+  { name: "Babalar Günü", date: "2026-06-21", description: "Ailemizin direği, fedakar babalarımızın değerini hatırladığımız ve kutladığımız gün." },
   { name: "Aşure Günü", date: "2026-06-25", description: "Paylaşmanın, dayanışmanın, birlik ve beraberliğin simgesi. Muharrem ayının 10. günü." },
+  { name: "Demokrasi ve Milli Birlik Günü", date: "2026-07-15", description: "Hain darbe girişimine karşı milletin zaferi, şehitlerimizi anma ve demokrasiye sahip çıkma günü." },
   { name: "Mevlid Kandili", date: "2026-08-24", description: "Alemlere rahmet olarak gönderilen Peygamber Efendimiz Hz. Muhammed'in (s.a.v) dünyaya teşrif ettiği gece." },
+  { name: "Zafer Bayramı", date: "2026-08-30", description: "Büyük Taarruz'un zaferle sonuçlandığı, Türk ordusunun gücünü dünyaya gösterdiği gün." },
+  { name: "Cumhuriyet Bayramı", date: "2026-10-29", description: "Cumhuriyetin ilanı, egemenliğin kayıtsız şartsız millete verildiği en büyük milli bayramımız." },
+  { name: "Öğretmenler Günü", date: "2026-11-24", description: "Geleceğimizi şekillendiren, fedakar öğretmenlerimize saygı ve şükranlarımızı sunduğumuz gün." },
 ];
 
 // List of 81 Provinces of Turkey for the Modal
@@ -510,15 +523,58 @@ const App = () => {
   };
 
   const getEventForDay = (date) => {
-    // Diyanet/Religious days logic
-    const dateString = date.toISOString().split('T')[0];
-    return religiousDays.find(d => d.date === dateString);
+    // Fix: Use local date construction to avoid UTC timezone shifts
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+    return specialDays.find(d => d.date === dateString);
   };
 
   const calendarDays = useMemo(() => getDaysInMonth(calendarViewDate), [calendarViewDate]);
   const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
   const daysOfWeek = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 
+  // Active Special Day Logic (Selected, Today or Next)
+  const activeSpecialDay = useMemo(() => {
+    // 1. Check if the SELECTED DATE is a special day
+    const selectedYear = selectedDate.getFullYear();
+    const selectedMonth = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const selectedDay = String(selectedDate.getDate()).padStart(2, '0');
+    const selectedDateStr = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+
+    const selectedEvent = specialDays.find(d => d.date === selectedDateStr);
+    if (selectedEvent) {
+      return { ...selectedEvent, status: 'selected' };
+    }
+
+    // 2. Fallback: Default Logic (Today or Next relative to real time)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Construct local YYYY-MM-DD string for today
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+
+    // Check if today is a special day
+    const todayEvent = specialDays.find(d => d.date === todayStr);
+    if (todayEvent) {
+      return { ...todayEvent, status: 'today' };
+    }
+
+    // Find next special day
+    const nextEvent = specialDays.find(d => d.date > todayStr);
+    if (nextEvent) {
+      const eventDate = new Date(nextEvent.date);
+      const diffTime = Math.abs(eventDate - today);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return { ...nextEvent, status: 'upcoming', daysLeft: diffDays };
+    }
+
+    return null;
+  }, [selectedDate]);
 
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans selection:bg-orange-500 selection:text-white relative overflow-x-hidden flex flex-col">
@@ -664,6 +720,40 @@ const App = () => {
             </div>
           </div>
         </div>
+
+        {/* Active Special Day Card */}
+        {activeSpecialDay && (
+          <div className="bg-gradient-to-r from-orange-900/40 to-stone-900/40 backdrop-blur rounded-2xl border border-orange-500/30 p-6 flex flex-col md:flex-row items-center gap-6 text-center md:text-left relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-10 text-orange-500">
+              <Star size={100} />
+            </div>
+
+            <div className="bg-orange-500/20 p-4 rounded-full text-orange-500 shrink-0">
+              <Star size={32} fill={(activeSpecialDay.status === 'today' || activeSpecialDay.status === 'selected') ? "currentColor" : "none"} />
+            </div>
+
+            <div className="flex-1 z-10">
+              <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2 justify-center md:justify-start">
+                <span className="text-orange-400 font-bold uppercase tracking-wider text-sm">
+                  {activeSpecialDay.status === 'today' ? "BUGÜN ÖZEL BİR GÜN" :
+                    activeSpecialDay.status === 'selected' ? "SEÇİLEN ÖZEL GÜN" : "SIRADAKİ ÖZEL GÜN"}
+                </span>
+                {activeSpecialDay.status === 'upcoming' && (
+                  <span className="bg-stone-800 text-stone-300 text-xs px-2 py-1 rounded-full border border-stone-700">
+                    {activeSpecialDay.daysLeft} gün kaldı
+                  </span>
+                )}
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">{activeSpecialDay.name}</h3>
+              <p className="text-stone-300 leading-relaxed max-w-2xl">{activeSpecialDay.description}</p>
+            </div>
+
+            <div className="shrink-0 z-10 flex flex-col items-center bg-stone-900/50 p-3 rounded-lg border border-stone-800 backdrop-blur-sm">
+              <span className="text-3xl font-bold text-orange-500">{new Date(activeSpecialDay.date).getDate()}</span>
+              <span className="text-xs text-stone-400 uppercase font-bold">{monthNames[new Date(activeSpecialDay.date).getMonth()]}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Modal (Same) */}
